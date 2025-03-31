@@ -1,4 +1,4 @@
-import { AppDataSource } from "../db/data-source"
+import { AppDataSource } from "./data-source"
 
 AppDataSource.initialize().then(async () => {
 
