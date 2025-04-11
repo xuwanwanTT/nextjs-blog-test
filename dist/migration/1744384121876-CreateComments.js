@@ -31,10 +31,10 @@ var CreateComments1744384121876 = exports.CreateComments1744384121876 = /*#__PUR
                   isGenerated: true,
                   generationStrategy: 'increment'
                 }, {
-                  name: 'user_id',
+                  name: 'userId',
                   type: 'int'
                 }, {
-                  name: 'post_id',
+                  name: 'postId',
                   type: 'int'
                 }, {
                   name: 'content',

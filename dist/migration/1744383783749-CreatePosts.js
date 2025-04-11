@@ -37,7 +37,7 @@ var CreatePosts1744383783749 = exports.CreatePosts1744383783749 = /*#__PURE__*/f
                   name: 'content',
                   type: 'text'
                 }, {
-                  name: 'author_id',
+                  name: 'authorId',
                   type: 'int'
                 }]
               }));

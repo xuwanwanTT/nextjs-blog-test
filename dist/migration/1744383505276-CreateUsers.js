@@ -34,7 +34,7 @@ var CreateUsers1744383505276 = exports.CreateUsers1744383505276 = /*#__PURE__*/f
                   name: 'username',
                   type: 'varchar'
                 }, {
-                  name: 'password_digest',
+                  name: 'passwordDigest',
                   type: 'varchar'
                 }]
               }));
