@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "typeorm:build": "babel -w ./db --out-dir dist --extensions .ts,.tsx",
-    "migration:run": "./node_modules/typeorm/cli.js migration:run -d ./dist/data-source.js",
-    "migration:revert": "typeorm migration:revert -d ./dist/data-source.js",
+    "m:create": "typeorm migration:create",
+    "m:run": "./node_modules/typeorm/cli.js migration:run -d ./dist/data-source.js",
+    "m:revert": "typeorm migration:revert -d ./dist/data-source.js",
     "entity:create": "typeorm entity:create"
   },
   "dependencies": {
