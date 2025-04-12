@@ -1,8 +1,14 @@
 import { AppDataSource } from "./data-source"
+import { User } from "./entity/User";
 // import { Post } from "./entity/Post"
 
 AppDataSource.initialize().then(async () => {
-    const manager = AppDataSource.manager;
+    const { manager } = AppDataSource;
+
+    // const u1 = new User();
+    // u1.username = 'xuwanwan';
+    // u1.passwordDigest = '520';
+    // await manager.save(u1);
     // const posts = await manager.find(Post);
     // console.log(posts);
 

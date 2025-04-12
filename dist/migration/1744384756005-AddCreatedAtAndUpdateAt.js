@@ -24,12 +24,12 @@ var AddCreatedAtAndUpdateAt1744384756005 = exports.AddCreatedAtAndUpdateAt174438
               _context.next = 2;
               return queryRunner.addColumns('users', [new _typeorm.TableColumn({
                 name: 'createdAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               }), new _typeorm.TableColumn({
                 name: 'updatedAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               })]);
@@ -37,12 +37,12 @@ var AddCreatedAtAndUpdateAt1744384756005 = exports.AddCreatedAtAndUpdateAt174438
               _context.next = 4;
               return queryRunner.addColumns('posts', [new _typeorm.TableColumn({
                 name: 'createdAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               }), new _typeorm.TableColumn({
                 name: 'updatedAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               })]);
@@ -50,12 +50,12 @@ var AddCreatedAtAndUpdateAt1744384756005 = exports.AddCreatedAtAndUpdateAt174438
               _context.next = 6;
               return queryRunner.addColumns('comments', [new _typeorm.TableColumn({
                 name: 'createdAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               }), new _typeorm.TableColumn({
                 name: 'updatedAt',
-                type: 'time',
+                type: 'timestamp',
                 isNullable: false,
                 "default": 'now()'
               })]);

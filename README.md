@@ -10,6 +10,10 @@ yarn m:create ./db/migration/CreatePosts
 yarn m:create ./db/migration/CreateComments
 yarn m:create ./db/migration/AddCreatedAtAndUpdateAt
 
+yarn e:create ./db/entity/User
+yarn e:create ./db/entity/Post
+yarn e:create ./db/entity/Comment
+
 ```
 
 # 需求分析

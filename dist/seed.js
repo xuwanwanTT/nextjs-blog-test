@@ -11,7 +11,11 @@ _dataSource.AppDataSource.initialize().then(/*#__PURE__*/(0, _asyncToGenerator2[
   return _regenerator["default"].wrap(function _callee$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
-        manager = _dataSource.AppDataSource.manager; // const posts = await manager.find(Post);
+        manager = _dataSource.AppDataSource.manager; // const u1 = new User();
+        // u1.username = 'xuwanwan';
+        // u1.passwordDigest = '520';
+        // await manager.save(u1);
+        // const posts = await manager.find(Post);
         // console.log(posts);
         // if (posts.length === 0) {
         //     await manager.save([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(n => {
