@@ -1,26 +1,30 @@
 import { AppDataSource } from "./data-source"
+import { Comment } from "./entity/Comment";
+import { Post } from "./entity/Post";
 import { User } from "./entity/User";
-// import { Post } from "./entity/Post"
 
 AppDataSource.initialize().then(async () => {
     const { manager } = AppDataSource;
 
-    // const u1 = new User();
-    // u1.username = 'xuwanwan';
-    // u1.passwordDigest = '520';
-    // await manager.save(u1);
-    // const posts = await manager.find(Post);
-    // console.log(posts);
+    // 创建 user 1
+    const u1 = new User();
+    u1.username = 'xuwanwan';
+    u1.passwordDigest = '520';
+    await manager.save(u1);
 
-    // if (posts.length === 0) {
-    //     await manager.save([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(n => {
-    //         return new Post({ title: `Post ${n}`, content: `这是我的第${n}篇文章` });
-    //     }));
-    //     console.log('数据填充了')
-    // }
+    // 创建 post 1
+    const p1 = new Post();
+    p1.title = 'First Post';
+    p1.content = 'This is my first post';
+    p1.author = u1;
+    await manager.save(p1);
 
-    // const posts2 = await manager.find(Post);
-    // console.log(posts2);
+    // 创建 comment 1
+    const c1 = new Comment();
+    c1.content = '666';
+    c1.user = u1;
+    c1.post = p1;
+    await manager.save(c1);
 
     AppDataSource.destroy();
 

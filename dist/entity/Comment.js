@@ -15,7 +15,7 @@ var _typeorm = require("typeorm");
 var _User = require("./User");
 var _Post = require("./Post");
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8;
-var Comment = exports.Comment = (_dec = (0, _typeorm.Entity)(), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)('increment'), _dec3 = (0, _typeorm.Column)('int'), _dec4 = (0, _typeorm.Column)('int'), _dec5 = (0, _typeorm.Column)('text'), _dec6 = (0, _typeorm.CreateDateColumn)(), _dec7 = (0, _typeorm.UpdateDateColumn)(), _dec8 = (0, _typeorm.ManyToOne)(function (type) {
+var Comment = exports.Comment = (_dec = (0, _typeorm.Entity)('comments'), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)('increment'), _dec3 = (0, _typeorm.Column)('int'), _dec4 = (0, _typeorm.Column)('int'), _dec5 = (0, _typeorm.Column)('text'), _dec6 = (0, _typeorm.CreateDateColumn)(), _dec7 = (0, _typeorm.UpdateDateColumn)(), _dec8 = (0, _typeorm.ManyToOne)(function (type) {
   return _User.User;
 }, function (user) {
   return user.comments;
