@@ -77,4 +77,6 @@ yarn e:create ./db/entity/User
 yarn e:create ./db/entity/Post
 yarn e:create ./db/entity/Comment
 
+yarn m:create ./db/migration/AddUniqueUsernameToUsers
+
 ```
