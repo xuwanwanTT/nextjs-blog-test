@@ -81,14 +81,14 @@ const SignIn: NextPage<{ user: User }> = (props) => {
 
 export default SignIn;
 
-// @ts-ignore
 export const getServerSideProps: GetServerSideProps<any, any> = withSession(async (context) => {
 
+  // @ts-ignore
   const user = context.req.session.get('currentUser');
 
   return {
     props: {
-      user: JSON.parse(JSON.stringify(user))
+      user: user !== undefined ? JSON.parse(JSON.stringify(user)) : null
     }
   };
 });
