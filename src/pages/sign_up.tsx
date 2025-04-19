@@ -14,7 +14,6 @@ const SignUp: NextPage = () => {
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
-    // console.log(formData);
     axios.post(`/api/v1/users`, formData).then(() => {
       window.alert('注册成功');
       window.location.href = '/sign_in';
