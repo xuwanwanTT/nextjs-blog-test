@@ -15,9 +15,12 @@ const SignUp: NextPage = () => {
   const onSubmit = useCallback((e) => {
     e.preventDefault();
     // console.log(formData);
-    axios.post(`/api/v1/users`, formData).then(() => {
-      window.alert('注册成功');
-      window.location.href = '/sign_in';
+    setErrors({
+      username: [], password: [], passwordConfirmation: []
+    });
+
+    axios.post(`/api/v1/sessions`, formData).then(() => {
+      window.alert('登录成功');
     }, error => {
       const response: AxiosResponse = error.response;
       if (response.status === 422) {
@@ -28,7 +31,7 @@ const SignUp: NextPage = () => {
 
   return (
     <>
-      <h1>注册</h1>
+      <h1>登录</h1>
       <form onSubmit={onSubmit}>
         <div>
           <label>
@@ -63,23 +66,7 @@ const SignUp: NextPage = () => {
         </div>
 
         <div>
-          <label>
-            确认密码
-            <input type='password' value={formData.passwordConfirmation} onChange={e => {
-              setFormData({
-                ...formData,
-                passwordConfirmation: e.target.value
-              })
-            }} />
-          </label>
-
-          {errors.passwordConfirmation?.length > 0 && (
-            <div>{errors.passwordConfirmation.join(',')}</div>
-          )}
-        </div>
-
-        <div>
-          <button type='submit'>注册</button>
+          <button type='submit'>登录</button>
         </div>
       </form>
     </>

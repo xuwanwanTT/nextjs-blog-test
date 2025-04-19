@@ -2,7 +2,7 @@ import type { NextApiHandler } from "next";
 import { getDatabaseConnection } from "../../../../lib/getDatabaseConnection";
 import { User } from "../../../../db/entity/User";
 
-const Posts: NextApiHandler = async (req, res) => {
+const Users: NextApiHandler = async (req, res) => {
   const { username, password, passwordConfirmation } = req.body;
 
   const { manager } = await getDatabaseConnection();
@@ -29,4 +29,4 @@ const Posts: NextApiHandler = async (req, res) => {
 }
 
 
-export default Posts;
+export default Users;
