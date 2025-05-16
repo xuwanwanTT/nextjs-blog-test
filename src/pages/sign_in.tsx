@@ -1,25 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
-import { useCallback, useState } from 'react';
 import { withSession } from '../../lib/withSession';
 import { User } from '../../db/entity/User';
-import { Form } from '@/components/form/Form';
+import { useForm } from '../../hooks/useForm';
 
 const SignIn: NextPage<{ user: User }> = (props) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({
-    username: [], password: []
-  })
-
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    setErrors({
-      username: [], password: []
-    });
-
+  const onSubmit = (formData) => {
     axios.post(`/api/v1/sessions`, formData).then(() => {
       window.alert('登录成功');
     }, error => {
@@ -28,11 +14,19 @@ const SignIn: NextPage<{ user: User }> = (props) => {
         setErrors(response.data);
       }
     });
-  }, [formData]);
+  };
 
-  const handleChange = useCallback((key: string, value: string) => {
-    setFormData({ ...formData, [key]: value })
-  }, [formData]);
+  const initFormData = { username: '', password: '' };
+
+  const { form, setErrors } = useForm({
+    initFormData,
+    fields: [
+      { label: '用户名', type: 'text', key: 'username' },
+      { label: '密码', type: 'password', key: 'password' }
+    ],
+    buttons: <button type='submit'>登录</button>,
+    onSubmit
+  });
 
   return (
     <>
@@ -42,26 +36,7 @@ const SignIn: NextPage<{ user: User }> = (props) => {
         </div>
       }
       <h1>登录</h1>
-      <Form fields={[
-        {
-          label: '用户名',
-          type: 'text',
-          value: formData.username,
-          onChange: e => handleChange('username', e.target.value),
-          errors: errors.username
-        },
-        {
-          label: '密码',
-          type: 'password',
-          value: formData.password,
-          onChange: e => handleChange('password', e.target.value),
-          errors: errors.password
-        }
-      ]} onSubmit={handleSubmit} buttons={(
-        <>
-          <button type='submit'>登录</button>
-        </>
-      )} />
+      {form}
     </>
   );
 };
