@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { ReactElement, useCallback, useState } from 'react';
 
 type Field<T> = {
@@ -10,11 +11,14 @@ type useFormOptions<T> = {
   initFormData: T;
   fields: Field<T>[];
   buttons: ReactElement;
-  onSubmit: (fd: T) => void;
+  submit: {
+    request: (formData: T) => Promise<T>;
+    message: string
+  }
 };
 
 export function useForm<T>(options: useFormOptions<T>) {
-  const { initFormData, fields, buttons, onSubmit } = options;
+  const { initFormData, fields, buttons, submit } = options;
   // 非受控
   const [formData, setFormData] = useState(initFormData);
   const [errors, setErrors] = useState(() => {
@@ -33,17 +37,25 @@ export function useForm<T>(options: useFormOptions<T>) {
 
   const _onSubmit = useCallback((e) => {
     e.preventDefault();
-    onSubmit(formData);
-  }, [onSubmit, formData]);
+
+    submit.request(formData).then(() => {
+      window.alert(submit.message);
+    }, (error) => {
+      const response: AxiosResponse = error.response;
+      if (response.status === 422) {
+        setErrors(response.data);
+      }
+    })
+  }, [submit, formData]);
 
   const form = (
     <form onSubmit={_onSubmit}>
       {fields.map((field, idx) => {
         return (
-          <div key={idx}>
+          <div key={field.key.toString()}>
             <label>{field.label}
               {field.type === 'textarea' ? (
-                <textarea onChange={e => onChange(field.key, e.target.value)}>{formData[field.key]?.toString()}</textarea>
+                <textarea onChange={e => onChange(field.key, e.target.value)} value={formData[field.key]?.toString()} />
               ) : (
                 <input type={field.type} value={formData[field.key]?.toString()} onChange={e => onChange(field.key, e.target.value)} />
               )}
