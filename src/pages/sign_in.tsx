@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import { withSession } from '../../lib/withSession';
 import { User } from '../../db/entity/User';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '@/hooks/useForm';
 
 const SignIn: NextPage<{ user: User }> = (props) => {
   const onSubmit = (formData) => {

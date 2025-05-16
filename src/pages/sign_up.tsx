@@ -1,6 +1,6 @@
+import { useForm } from '@/hooks/useForm';
 import axios, { AxiosResponse } from 'axios';
 import { NextPage } from 'next';
-import { useForm } from '../../hooks/useForm';
 
 const SignUp: NextPage = () => {
   const onSubmit = (formData) => {
