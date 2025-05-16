@@ -28,5 +28,4 @@ const Users: NextApiHandler = async (req, res) => {
   res.end();
 }
 
-
 export default Users;
