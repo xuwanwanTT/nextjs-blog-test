@@ -3,7 +3,7 @@ import { getDatabaseConnection } from "../../../../lib/getDatabaseConnection";
 import { Post } from "../../../../db/entity/Post";
 import { withSession } from "../../../../lib/withSession";
 
-const Posts: NextApiHandler = withSession(async (req, res) => {
+const Posts: NextApiHandler = withSession(async (req: any, res) => {
   if (req.method === 'POST') {
     const { title, content } = req.body;
 

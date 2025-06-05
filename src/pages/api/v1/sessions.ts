@@ -2,7 +2,7 @@ import type { NextApiHandler } from "next";
 import { SignIn } from "../../../../db/model/SignIn";
 import { withSession } from "../../../../lib/withSession";
 
-const Sessions: NextApiHandler = async (req, res) => {
+const Sessions: NextApiHandler = async (req: any, res) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
   const { username, password } = req.body;

@@ -17,14 +17,14 @@ export const usePager = (options: Options) => {
   }
   numbers.push(totalPage);
 
-  const pageNumbers = _.uniq(numbers).sort((a, b) => a - b).filter(n => n >= 1 && n <= totalPage).reduce((result, n) => {
+  const pageNumbers = _.uniq(numbers).sort((a, b) => a - b).filter(n => n >= 1 && n <= totalPage).reduce((result: number[], n) => {
     return (n - (result[result.length - 1] || 0)) === 1 ? result.concat(n) : result.concat(-1, n)
   }, []);
 
   const pager = (
     <div>
       {page !== 1 && <Link href={urlMaker(page - 1)}>上一页</Link>}
-      {pageNumbers.map(n => n === -1 ? <span>...</span> : <Link href={urlMaker(n)} style={{
+      {pageNumbers.map(n => n === -1 ? <span key={n}>...</span> : <Link key={n} href={urlMaker(n)} style={{
         color: n === page ? 'red' : '#333',
         margin: '0 10px'
       }}>{n}</Link>)}

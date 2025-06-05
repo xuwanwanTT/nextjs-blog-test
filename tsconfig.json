@@ -24,7 +24,8 @@
         "./src/*"
       ]
     },
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false
   },
   "include": [
     "next-env.d.ts",

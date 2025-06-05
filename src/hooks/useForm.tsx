@@ -23,8 +23,8 @@ export function useForm<T>(options: useFormOptions<T>) {
   const [formData, setFormData] = useState(initFormData);
   const [errors, setErrors] = useState(() => {
     const e: { [k in keyof T]?: string[] } = {};
-    for (let key in initFormData) {
-      if (initFormData.hasOwnProperty(key)) {
+    for (const key in initFormData) {
+      if (initFormData[key]) {
         e[key] = [];
       }
     }
@@ -35,7 +35,7 @@ export function useForm<T>(options: useFormOptions<T>) {
     setFormData({ ...formData, [key]: value });
   }, [formData]);
 
-  const _onSubmit = useCallback((e) => {
+  const _onSubmit = useCallback((e: any) => {
     e.preventDefault();
 
     submit.request(formData).then(() => {
@@ -53,7 +53,7 @@ export function useForm<T>(options: useFormOptions<T>) {
 
   const form = (
     <form onSubmit={_onSubmit}>
-      {fields.map((field, idx) => {
+      {fields.map((field) => {
         return (
           <div key={field.key.toString()}>
             <label>{field.label}
@@ -63,9 +63,9 @@ export function useForm<T>(options: useFormOptions<T>) {
                 <input type={field.type} value={formData[field.key]?.toString()} onChange={e => onChange(field.key, e.target.value)} />
               )}
             </label>
-            {errors[field.key]?.length > 0 && (
+            {(errors[field.key] || []).length! > 0 && (
               <div>
-                {errors[field.key].join(',')}
+                {(errors[field.key] || []).join(',')}
               </div>
             )}
           </div>
