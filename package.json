@@ -25,6 +25,7 @@
     "next": "15.2.4",
     "next-iron-session": "^4.2.0",
     "pg": "^8.14.1",
+    "query-string": "^9.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "reflect-metadata": "^0.2.2",

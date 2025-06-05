@@ -13,7 +13,7 @@ type useFormOptions<T> = {
   buttons: ReactElement;
   submit: {
     request: (formData: T) => Promise<T>;
-    message: string
+    success: () => void;
   }
 };
 
@@ -39,11 +39,14 @@ export function useForm<T>(options: useFormOptions<T>) {
     e.preventDefault();
 
     submit.request(formData).then(() => {
-      window.alert(submit.message);
+      submit.success();
     }, (error) => {
       const response: AxiosResponse = error.response;
       if (response.status === 422) {
         setErrors(response.data);
+      } else if (response.status === 401) {
+        window.alert('请先登录');
+        window.location.href = `/sign_in?return_to=${encodeURIComponent(window.location.pathname)}`;
       }
     })
   }, [submit, formData]);
