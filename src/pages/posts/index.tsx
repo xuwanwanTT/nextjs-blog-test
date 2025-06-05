@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const search = context.req.url?.substring(index + 1) || '';
   const query = qs.parse(search);
   const page = parseInt(query.page?.toString() || '') || 1;
-  const perPage = 1;
+  const perPage = 10;
 
   const { manager } = await getDatabaseConnection();
   const [posts, count] = await manager.findAndCount(Post, {
