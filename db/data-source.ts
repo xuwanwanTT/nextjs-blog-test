@@ -1,17 +1,9 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
+import config from "../ormconfig.json";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions.js";
 
 export const AppDataSource = new DataSource({
-    type: "postgres",
-    host: "192.168.1.13",
-    port: 5432,
-    username: "blog",
-    password: "",
-    database: "blog_development",
-    synchronize: false,
-    logging: false,
-    entities: ["dist/entity/**/*.js"],
-    migrations: ["dist/migration/**/*.js"],
-    subscribers: ["dist/subscribers/**/*.js"],
-    migrationsRun: true,
-})
+    ...config as PostgresConnectionOptions,
+    host: process.env.NODE_ENV === "production" ? "localhost" : config.host
+});
