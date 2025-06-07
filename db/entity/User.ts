@@ -1,7 +1,7 @@
 import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { Post } from "./Post";
 import { Comment } from "./Comment";
-// import { getDatabaseConnection } from "../../lib/getDatabaseConnection";
+import { getDatabaseConnection } from "../../lib/getDatabaseConnection";
 import md5 from "md5";
 import _ from "lodash";
 
@@ -52,11 +52,11 @@ export class User {
       if (this.username.trim().length <= 3) {
         this.errors.username.push('太短');
       }
-      // const { manager } = await getDatabaseConnection();
-      // const found = await manager.findOne(User, { where: { username: this.username } })
-      // if (found) {
-      // this.errors.username.push('已存在，不能重复注册')
-      // }
+      const { manager } = await getDatabaseConnection();
+      const found = await manager.findOne(User, { where: { username: this.username } })
+      if (found) {
+        this.errors.username.push('已存在，不能重复注册')
+      }
       if (this.password === '') {
         this.errors.password.push('不能为空');
       }

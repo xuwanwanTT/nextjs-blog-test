@@ -16,9 +16,10 @@ var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/
 var _typeorm = require("typeorm");
 var _Post = require("./Post");
 var _Comment = require("./Comment");
+var _getDatabaseConnection = require("../../lib/getDatabaseConnection");
 var _md = _interopRequireDefault(require("md5"));
 var _lodash = _interopRequireDefault(require("lodash"));
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7; // import { getDatabaseConnection } from "../../lib/getDatabaseConnection";
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7;
 var User = exports.User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGeneratedColumn)('increment'), _dec3 = (0, _typeorm.Column)('varchar'), _dec4 = (0, _typeorm.Column)('varchar'), _dec5 = (0, _typeorm.CreateDateColumn)(), _dec6 = (0, _typeorm.UpdateDateColumn)(), _dec7 = (0, _typeorm.OneToMany)(function (type) {
   return _Post.Post;
 }, function (post) {
@@ -47,37 +48,53 @@ var User = exports.User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _ty
     key: "validate",
     value: function () {
       var _validate = (0, _asyncToGenerator2["default"])(/*#__PURE__*/_regenerator["default"].mark(function _callee() {
+        var _yield$getDatabaseCon, manager, found;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              if (this.username === undefined) {
-                this.errors.username.push('不能为空');
-              } else {
-                if (this.username.trim() === '') {
-                  this.errors.username.push('不能为空');
-                }
-                if (!/[a-zA-Z0-9]/.test(this.username.trim())) {
-                  this.errors.username.push('格式不合法');
-                }
-                if (this.username.trim().length > 42) {
-                  this.errors.username.push('太长');
-                }
-                if (this.username.trim().length <= 3) {
-                  this.errors.username.push('太短');
-                }
-                // const { manager } = await getDatabaseConnection();
-                // const found = await manager.findOne(User, { where: { username: this.username } })
-                // if (found) {
-                // this.errors.username.push('已存在，不能重复注册')
-                // }
-                if (this.password === '') {
-                  this.errors.password.push('不能为空');
-                }
-                if (this.password !== this.passwordConfirmation) {
-                  this.errors.passwordConfirmation.push('密码不匹配');
-                }
+              if (!(this.username === undefined)) {
+                _context.next = 4;
+                break;
               }
-            case 1:
+              this.errors.username.push('不能为空');
+              _context.next = 18;
+              break;
+            case 4:
+              if (this.username.trim() === '') {
+                this.errors.username.push('不能为空');
+              }
+              if (!/[a-zA-Z0-9]/.test(this.username.trim())) {
+                this.errors.username.push('格式不合法');
+              }
+              if (this.username.trim().length > 42) {
+                this.errors.username.push('太长');
+              }
+              if (this.username.trim().length <= 3) {
+                this.errors.username.push('太短');
+              }
+              _context.next = 10;
+              return (0, _getDatabaseConnection.getDatabaseConnection)();
+            case 10:
+              _yield$getDatabaseCon = _context.sent;
+              manager = _yield$getDatabaseCon.manager;
+              _context.next = 14;
+              return manager.findOne(User, {
+                where: {
+                  username: this.username
+                }
+              });
+            case 14:
+              found = _context.sent;
+              if (found) {
+                this.errors.username.push('已存在，不能重复注册');
+              }
+              if (this.password === '') {
+                this.errors.password.push('不能为空');
+              }
+              if (this.password !== this.passwordConfirmation) {
+                this.errors.passwordConfirmation.push('密码不匹配');
+              }
+            case 18:
             case "end":
               return _context.stop();
           }
