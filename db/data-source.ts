@@ -5,5 +5,6 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 
 export const AppDataSource = new DataSource({
     ...config as PostgresConnectionOptions,
-    host: process.env.NODE_ENV === "production" ? "localhost" : config.host
+    host: process.env.NODE_ENV === "production" ? "localhost" : config.host,
+    database: process.env.NODE_ENV === "production" ? "blog_production" : "blog_development"
 });
