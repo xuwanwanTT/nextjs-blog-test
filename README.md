@@ -84,3 +84,14 @@ yarn m:create ./db/migration/AddUniqueUsernameToUsers
 ### bug 记录
 
 如果想要删除数据库重新运行 yarn m:run，需要先注释 entity 的文件中的 getDatabaseConnection 相关操作，否则可能报错，随后再打开注释
+
+### 部署
+
+```
+docker run --network=host -v "/home/blog/blog-data":/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_USER=blog -e POSTGRES_HOST_AUTH_METHOD=trust -d postgres:12.2
+
+docker build -t xuwanwan/nextjs-blog-test .
+
+docker run --network=host -p 3000:3000 -d xuwanwan/nextjs-blog-test
+
+```
