@@ -1,10 +1,12 @@
 import { AxiosResponse } from 'axios';
 import { ReactElement, useCallback, useState } from 'react';
+import cs from 'classnames';
 
 type Field<T> = {
   label: string,
   type: 'text' | 'password' | 'textarea',
-  key: keyof T
+  key: keyof T;
+  className?: string,
 };
 
 type useFormOptions<T> = {
@@ -55,7 +57,7 @@ export function useForm<T>(options: useFormOptions<T>) {
     <form onSubmit={_onSubmit}>
       {fields.map((field) => {
         return (
-          <div key={field.key.toString()}>
+          <div key={field.key.toString()} className={cs(`field-${field.key.toString()}`, field.className)}>
             <label>{field.label}
               {field.type === 'textarea' ? (
                 <textarea onChange={e => onChange(field.key, e.target.value)} value={formData[field.key]?.toString()} />

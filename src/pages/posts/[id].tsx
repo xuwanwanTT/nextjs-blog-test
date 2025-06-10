@@ -1,18 +1,23 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getDatabaseConnection } from "../../../lib/getDatabaseConnection";
-import { Post } from "../../../db/entity/Post";
 import { marked } from 'marked';
+import Link from "next/link";
+import { withSession } from "../../../lib/withSession";
 
 type Props = {
-  post: any
+  post: Post,
+  currentUser: User | null
 };
 
 const postsShow: NextPage<Props> = (props) => {
-  const { post } = props;
+  const { currentUser, post } = props;
 
   return (
     <div>
-      <h1>{post.title}</h1>
+      <header>
+        <h1>{post.title}</h1>
+        {currentUser ? <Link href={'/posts/[id]/edit'} as={`/posts/${post.id}/edit`}>编辑文章</Link> : null}
+      </header>
       <article className="markdown-body"
         style={{
           width: 980,
@@ -26,14 +31,17 @@ const postsShow: NextPage<Props> = (props) => {
 
 export default postsShow;
 
-export const getServerSideProps: GetServerSideProps<any, any> = async (context) => {
+export const getServerSideProps: GetServerSideProps<any, any> = withSession(async (context) => {
+
+  const currentUser = context.req.session.get('currentUser') || null;
 
   const { manager } = await getDatabaseConnection();
-  const post = await manager.findOneOrFail(Post, { where: { id: context.params.id } });
+  const post = await manager.findOneOrFail('Post', { where: { id: context.params.id } });
 
   return {
     props: {
+      currentUser,
       post: JSON.parse(JSON.stringify(post))
     }
   };
-};
+});
